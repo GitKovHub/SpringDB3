@@ -10,9 +10,10 @@ import java.util.Set;
 @Table(name = "distributor")
 public class Distributor {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "distributor_name")
+    private String distributorName;
     @OneToMany(mappedBy = "distributor")
     private Set<Movie> moviesDistributed;
 }

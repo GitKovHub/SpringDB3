@@ -13,14 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SpringDb3ApplicationTests {
-
-/*    @Autowired
-    protected EntityManagerFactory entityManagerFactory;*/
     @Autowired
     private MovieRepository movieRepository;
     @Autowired
@@ -31,10 +29,10 @@ class SpringDb3ApplicationTests {
 
 /*    @Test
     void contextLoads() {
-        Distributor d =  Utils.getRandomDistributor();
-        System.out.println(d);
-        destributorRepository.save(d);
-        Movie m = Utils.getRandomMovie(d);
+        List<Distributor> d = destributorRepository.findAll();
+        Random rand = new Random();
+        Distributor randomElement = d.get(rand.nextInt(d.size()));
+        Movie m = Utils.getRandomMovie(randomElement);
         System.out.println(m);
         movieRepository.save(m);
         for (Movie mov:
@@ -79,9 +77,9 @@ class SpringDb3ApplicationTests {
 
     @Test
     void TestFindByListGenresAndBoxOffice() {
-        List<String> l = new ArrayList<String>();
-        l.add(Genre.HORROR.toString());l.add(Genre.COMEDY.toString());
-        List<Movie> mv = movieRepository.findMovieByManyGenresAndRangeBoxOffice(400000000,700000000,l,l.size());
+        List<Integer> l = new ArrayList<Integer>();
+        l.add(3);l.add(2);
+        List<Movie> mv = movieRepository.findMovieByManyGenresAndRangeBoxOffice(100000000,700000000,l,l.size());
         for (Movie mov:
                 mv) {
             System.out.println(mov);
@@ -111,7 +109,7 @@ class SpringDb3ApplicationTests {
 
     @Test
     void TestFindByAny() {
-        List<Movie> mv = movieRepository.findMovieByAnySearchMatch("producer1");
+        List<Movie> mv = movieRepository.findMovieByAnySearchMatch("Producer1");
         for (Movie mov:
                 mv) {
             System.out.println(mov);

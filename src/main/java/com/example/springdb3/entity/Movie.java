@@ -38,10 +38,9 @@ public class Movie {
     @Column(name = "release_year")
     private int releaseYear;
 
-    @ElementCollection(targetClass = Genre.class)
-    @CollectionTable(name = "movie_genre", joinColumns = @JoinColumn(name = "id"))
-    @Column(name = "genre", nullable = false)
-    @Enumerated(EnumType.STRING)
+    @ManyToMany
+    @JoinTable(name = "movie_genres",
+            joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
     private Set<Genre> genres;
 
     @ManyToMany

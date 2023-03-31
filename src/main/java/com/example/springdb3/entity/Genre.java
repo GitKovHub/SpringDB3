@@ -1,23 +1,28 @@
 package com.example.springdb3.entity;
 
 
+import jakarta.persistence.*;
+import lombok.Data;
+
 import java.util.Random;
 
-public enum Genre {
-    ACTION,
+
+@Data
+@Entity
+@Table(name = "genre")
+public class Genre{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "kind_of_genre")
+    private String kindOfGenre;
+}
+
+/*    ACTION,
     ADVENTURE,
     COMEDY,
     DRAMA,
     HORROR,
     ROMANCE,
     SCI_FI,
-    THRILLER;
-
-    private static final Random PRNG = new Random();
-
-    public static Genre randomGenre()  {
-        Genre[] directions = values();
-        return directions[PRNG.nextInt(directions.length)];
-    }
-
-}
+    THRILLER;*/

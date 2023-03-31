@@ -27,13 +27,13 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findMovieByOneOfManyDirectors(List<Integer> ids);
 
     @Query(value = "SELECT * FROM (SELECT u.* FROM Movie u INNER JOIN ( " +
-            "SELECT id FROM movie_genre " +
-            "WHERE genre IN :ids "+
-            "GROUP BY id " +
+            "SELECT movie_id FROM movie_genres " +
+            "WHERE genres_id IN :ids "+
+            "GROUP BY movie_id " +
             "HAVING COUNT(*) = :size " +
-            ") ba ON u.id = ba.id) gm WHERE gm.box_office > :minBox and gm.box_office < :maxBox",
+            ") ba ON u.id = ba.movie_id) gm WHERE gm.box_office > :minBox and gm.box_office < :maxBox",
             nativeQuery = true)
-    List<Movie> findMovieByManyGenresAndRangeBoxOffice(Integer minBox, Integer maxBox, List<String> ids, Integer size);
+    List<Movie> findMovieByManyGenresAndRangeBoxOffice(Integer minBox, Integer maxBox, List<Integer> ids, Integer size);
 
     @Query(value = "SELECT u.* FROM Movie u INNER JOIN ( " +
             "SELECT movie_id FROM movie_directors " +
